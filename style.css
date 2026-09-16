@@ -1,3 +1,25 @@
+/* ===== Warna & Font Aplikasi (Design Tokens) ===== */
+:root {
+    --color-primary: #2563eb;
+    --color-primary-dark: #1d4ed8;
+    --color-primary-light: rgba(37, 99, 235, 0.10);
+    --color-bg-start: #eef4ff;
+    --color-bg-end: #f8fafc;
+    --color-surface: rgba(255, 255, 255, 0.96);
+    --color-text: #172033;
+    --color-text-muted: #718096;
+    --color-label: #273449;
+    --color-border: #d9e0ea;
+    --color-input-bg: #f9fafc;
+    --color-placeholder: #9aa4b2;
+    --color-icon: #64748b;
+    --color-error: #dc2626;
+    --color-error-bg: #fef2f2;
+    --color-error-border: #fca5a5;
+
+    --font-family: 'Poppins', Arial, Helvetica, sans-serif;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -5,10 +27,10 @@
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-family);
     min-height: 100vh;
-    background: linear-gradient(135deg, #eef4ff, #f8fafc);
-    color: #172033;
+    background: linear-gradient(135deg, var(--color-bg-start), var(--color-bg-end));
+    color: var(--color-text);
 }
 
 /* Container */
@@ -20,14 +42,15 @@ body {
     padding: 24px;
 }
 
-/* Card Login */
+/* Card */
 .login-card {
     width: 100%;
     max-width: 430px;
-    background: #ffffff;
+    background: var(--color-surface);
     padding: 38px 35px;
     border-radius: 24px;
-    box-shadow: 0 20px 50px rgba(31, 41, 55, 0.10);
+    box-shadow: 
+        0 20px 50px rgba(31, 41, 55, 0.10);
 }
 
 /* Logo */
@@ -39,18 +62,18 @@ body {
     margin: 0 auto 18px;
 }
 
-/* Judul */
+/* Title */
 h1 {
     text-align: center;
     font-size: 30px;
     font-weight: 700;
-    color: #172033;
+    color: var(--color-text);
     letter-spacing: -0.5px;
 }
 
 .subtitle {
     text-align: center;
-    color: #718096;
+    color: var(--color-text-muted);
     font-size: 15px;
     margin-top: 8px;
     margin-bottom: 32px;
@@ -64,132 +87,100 @@ h1 {
 label {
     display: block;
     margin-bottom: 8px;
-    color: #273449;
+    color: var(--color-label);
     font-size: 15px;
     font-weight: 600;
 }
 
-/* Input */
-.input-wrapper {
-    position: relative;
-}
-
-.input-wrapper input {
+input {
     width: 100%;
     height: 52px;
-    padding: 0 45px;
-    border: 1.5px solid #d9e0ea;
+    padding: 0 16px;
+    border: 1.5px solid var(--color-border);
     border-radius: 12px;
-    background: #f9fafc;
-    color: #172033;
+    background: var(--color-input-bg);
+    color: var(--color-text);
     font-size: 15px;
+    font-family: inherit;
     outline: none;
     transition: 0.2s;
 }
 
-.input-wrapper input::placeholder {
-    color: #9aa4b2;
+input::placeholder {
+    color: var(--color-placeholder);
 }
 
-.input-wrapper input:focus {
-    background: #ffffff;
-    border-color: #2563eb;
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.10);
+input:focus {
+    background: white;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px var(--color-primary-light);
 }
 
-/* Icon kiri */
-.input-icon {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 2;
+/* Pesan Error */
+.form-error {
+    background: var(--color-error-bg);
+    border: 1px solid var(--color-error-border);
+    color: var(--color-error);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 14px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    text-align: center;
 }
 
-.input-icon svg {
-    width: 20px;
-    height: 20px;
-    fill: none;
-    stroke: #64748b;
-    stroke-width: 1.8;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+.form-error[hidden] {
+    display: none;
 }
 
-/* Tombol lihat password */
-.show-password {
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-
-    width: 38px;
-    height: 38px;
-    padding: 0;
-    margin: 0;
-
-    border: none;
-    background: transparent;
-    color: #64748b;
-    box-shadow: none;
+.field-error {
+    display: block;
+    min-height: 18px;
+    color: var(--color-error);
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 6px;
 }
 
-.show-password:hover {
-    background: transparent;
-    color: #2563eb;
-    transform: translateY(-50%);
+.input-wrapper.has-error input {
+    border-color: var(--color-error);
+    background: var(--color-error-bg);
 }
 
-.show-password svg {
-    width: 20px;
-    height: 20px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.8;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-/* Tombol Login */
-.login-button {
+/* Button */
+button {
     width: 100%;
     height: 52px;
     margin-top: 5px;
-
     border: none;
     border-radius: 12px;
-
-    background: #2563eb;
-    color: #ffffff;
-
+    background: var(--color-primary);
+    color: white;
     font-size: 16px;
     font-weight: 600;
-
+    font-family: inherit;
     cursor: pointer;
     transition: 0.2s;
-
     box-shadow: 0 8px 18px rgba(37, 99, 235, 0.20);
 }
 
-.login-button:hover {
-    background: #1d4ed8;
+button:hover {
+    background: var(--color-primary-dark);
     transform: translateY(-1px);
 }
 
-.login-button:active {
+button:active {
     transform: translateY(0);
 }
 
-/* Lupa Password */
+/* Forgot Password */
 .forgot {
     display: block;
     text-align: center;
     margin-top: 22px;
-
-    color: #2563eb;
+    color: var(--color-primary);
     font-size: 14px;
     font-weight: 600;
-
     text-decoration: none;
 }
 
@@ -197,9 +188,8 @@ label {
     text-decoration: underline;
 }
 
-/* Tampilan HP */
+/* HP / Versi Mobile */
 @media (max-width: 480px) {
-
     .login-container {
         padding: 16px;
     }
@@ -217,4 +207,69 @@ label {
     h1 {
         font-size: 27px;
     }
-  }
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper input {
+    padding-left: 45px;
+    padding-right: 45px;
+}
+
+.input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    z-index: 2;
+}
+
+.show-password {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    
+    width: 38px;
+    height: 38px;
+    margin: 0;
+    padding: 0;
+
+    background: transparent;
+    color: var(--color-icon);
+    box-shadow: none;
+    font-size: 17px;
+}
+
+.show-password:hover {
+    background: transparent;
+    transform: translateY(-50%);
+    color: var(--color-primary);
+}
+
+.show-password.is-visible {
+    color: var(--color-primary);
+}
+
+.input-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: var(--color-icon);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.show-password svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
