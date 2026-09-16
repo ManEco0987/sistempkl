@@ -1,0 +1,220 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #eef4ff, #f8fafc);
+    color: #172033;
+}
+
+/* Container */
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+}
+
+/* Card Login */
+.login-card {
+    width: 100%;
+    max-width: 430px;
+    background: #ffffff;
+    padding: 38px 35px;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(31, 41, 55, 0.10);
+}
+
+/* Logo */
+.logo {
+    display: block;
+    width: 105px;
+    height: 105px;
+    object-fit: contain;
+    margin: 0 auto 18px;
+}
+
+/* Judul */
+h1 {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    color: #172033;
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #718096;
+    font-size: 15px;
+    margin-top: 8px;
+    margin-bottom: 32px;
+}
+
+/* Form */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #273449;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* Input */
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper input {
+    width: 100%;
+    height: 52px;
+    padding: 0 45px;
+    border: 1.5px solid #d9e0ea;
+    border-radius: 12px;
+    background: #f9fafc;
+    color: #172033;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.input-wrapper input::placeholder {
+    color: #9aa4b2;
+}
+
+.input-wrapper input:focus {
+    background: #ffffff;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.10);
+}
+
+/* Icon kiri */
+.input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.input-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: #64748b;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Tombol lihat password */
+.show-password {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    margin: 0;
+
+    border: none;
+    background: transparent;
+    color: #64748b;
+    box-shadow: none;
+}
+
+.show-password:hover {
+    background: transparent;
+    color: #2563eb;
+    transform: translateY(-50%);
+}
+
+.show-password svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Tombol Login */
+.login-button {
+    width: 100%;
+    height: 52px;
+    margin-top: 5px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #2563eb;
+    color: #ffffff;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: 0.2s;
+
+    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.20);
+}
+
+.login-button:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+.login-button:active {
+    transform: translateY(0);
+}
+
+/* Lupa Password */
+.forgot {
+    display: block;
+    text-align: center;
+    margin-top: 22px;
+
+    color: #2563eb;
+    font-size: 14px;
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+.forgot:hover {
+    text-decoration: underline;
+}
+
+/* Tampilan HP */
+@media (max-width: 480px) {
+
+    .login-container {
+        padding: 16px;
+    }
+
+    .login-card {
+        padding: 32px 24px;
+        border-radius: 20px;
+    }
+
+    .logo {
+        width: 90px;
+        height: 90px;
+    }
+
+    h1 {
+        font-size: 27px;
+    }
+  }
