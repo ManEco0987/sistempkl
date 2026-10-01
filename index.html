@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PKL SISWA - Panel Guru Pembimbing</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- SIDEBAR NAVIGASI DI SEBELAH KIRI -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div class="brand-text">
+                    <h3>PKL SISWA</h3>
+                    <span>Panel Guru Pembimbing</span>
+                </div>
+            </div>
+
+            <!-- List Menu -->
+            <ul class="sidebar-menu">
+                <li class="menu-item active" onclick="switchTab('dashboard', this)">
+                    <i class="fa-solid fa-border-all"></i>
+                    <span>Dashboard Guru</span>
+                </li>
+                <li class="menu-item" onclick="switchTab('siswa', this)">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <span>Daftar Siswa</span>
+                </li>
+                <li class="menu-item" onclick="switchTab('absensi', this)">
+                    <i class="fa-regular fa-calendar-check"></i>
+                    <span>Monitoring Absensi</span>
+                </li>
+                <li class="menu-item" onclick="switchTab('lokasi', this)">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Monitoring Lokasi</span>
+                </li>
+                <li class="menu-item" onclick="switchTab('jurnal', this)">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>Rekap Jurnal</span>
+                </li>
+                <li class="menu-item" onclick="switchTab('nilai', this)">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                    <span>Rekap Nilai</span>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <a href="#" class="logout-link">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Keluar</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- AREA UTAMA / KONTEN KANAN -->
+        <div class="main-content">
+            <!-- Header Atas -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="btn-toggle-sidebar" onclick="toggleSidebar()">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="header-title">
+                        <small>SISTEM PKL</small>
+                        <h2 id="currentPageTitle">Dashboard Guru</h2>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="user-profile">
+                        <div class="avatar">GP</div>
+                        <div class="user-detail">
+                            <strong>I Gede Wardana, S.Pd.</strong>
+                            <small>Guru Pembimbing</small>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Isi Konten Dinamis -->
+            <main class="page-body">
+
+                <!-- 1. DASHBOARD GURU -->
+                <section id="tab-dashboard" class="tab-pane active fade-in">
+                    <div class="welcome-banner">
+                        <div class="banner-text">
+                            <h2>Selamat Datang, Pak Wardana 👋</h2>
+                            <p>Anda membimbing <strong id="dashTotalSiswa">5 siswa PKL</strong> pada semester ini.</p>
+                        </div>
+                    </div>
+
+                    <!-- Cards Ringkasan -->
+                    <div class="cards-grid">
+                        <div class="summary-card" onclick="switchTab('siswa', getMenuItem(1))">
+                            <div class="card-info">
+                                <span class="card-label">SISWA BIMBINGAN</span>
+                                <h2 class="card-value" id="cardTotalSiswa">5</h2>
+                                <span class="card-sub">TERDAFTAR</span>
+                            </div>
+                            <div class="card-icon icon-pink">
+                                <i class="fa-solid fa-user-graduate"></i>
+                            </div>
+                        </div>
+
+                        <div class="summary-card" onclick="switchTab('jurnal', getMenuItem(4))">
+                            <div class="card-info">
+                                <span class="card-label">JURNAL MENUNGGU</span>
+                                <h2 class="card-value">3</h2>
+                                <span class="card-sub">PERLU VERIFIKASI</span>
+                            </div>
+                            <div class="card-icon icon-orange">
+                                <i class="fa-solid fa-file-signature"></i>
+                            </div>
+                        </div>
+
+                        <div class="summary-card" onclick="switchTab('absensi', getMenuItem(2))">
+                            <div class="card-info">
+                                <span class="card-label">ABSENSI HARI INI</span>
+                                <h2 class="card-value">5 / 5</h2>
+                                <span class="card-sub">SUDAH ABSEN</span>
+                            </div>
+                            <div class="card-icon icon-green">
+                                <i class="fa-solid fa-calendar-check"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabel Ringkasan Siswa -->
+                    <div class="content-box">
+                        <div class="box-header">
+                            <h3>Daftar Siswa Bimbingan Saya</h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th>NAMA SISWA</th>
+                                        <th>JURUSAN</th>
+                                        <th>TEMPAT PKL</th>
+                                        <th>AKSI</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dashSiswaBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- 2. DAFTAR SISWA (FITUR CRUDS) -->
+                <section id="tab-siswa" class="tab-pane fade-in">
+                    <div class="section-banner">
+                        <h2>Daftar Siswa Bimbingan</h2>
+                        <p>Kelola, tambah, ubah, dan hapus data siswa yang Anda bimbing.</p>
+                    </div>
+
+                    <div class="filter-box">
+                        <div class="search-and-btn">
+                            <div class="search-input">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="text" id="searchSiswaInput" placeholder="Cari nama siswa atau perusahaan..." onkeyup="filterSiswa()">
+                            </div>
+                            <!-- Tombol Tambah Siswa -->
+                            <button class="btn-add-student" onclick="openAddSiswaModal()">
+                                <i class="fa-solid fa-plus"></i> Tambah Siswa
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="content-box">
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th>NAMA SISWA</th>
+                                        <th>JURUSAN</th>
+                                        <th>TEMPAT PKL</th>
+                                        <th>ALAMAT PKL</th>
+                                        <th style="text-align: center;">AKSI</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="siswaTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- 3. MONITORING ABSENSI -->
+                <section id="tab-absensi" class="tab-pane fade-in">
+                    <div class="section-banner">
+                        <h2>Monitoring Absensi Siswa</h2>
+                        <p>Pantau kehadiran harian siswa bimbingan di tempat PKL.</p>
+                    </div>
+
+                    <div class="content-box">
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th>NAMA SISWA</th>
+                                        <th>TANGGAL</th>
+                                        <th>JAM MASUK</th>
+                                        <th>STATUS</th>
+                                        <th>KETERANGAN</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="absensiTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- 4. MONITORING LOKASI -->
+                <section id="tab-lokasi" class="tab-pane fade-in">
+                    <div class="section-banner">
+                        <h2>Monitoring Lokasi PKL</h2>
+                        <p>Pengecekan kesesuaian titik koordinat lokasi tempat PKL siswa.</p>
+                    </div>
+
+                    <div class="content-box">
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th>NAMA SISWA</th>
+                                        <th>PERUSAHAAN</th>
+                                        <th>ALAMAT PKL</th>
+                                        <th>STATUS LOKASI</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="lokasiTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- 5. REKAP JURNAL -->
+                <section id="tab-jurnal" class="tab-pane fade-in">
+                    <div class="section-banner">
+                        <h2>Rekap & Verifikasi Jurnal</h2>
+                        <p>Daftar laporan kegiatan harian siswa yang memerlukan persetujuan.</p>
+                    </div>
+
+                    <div class="content-box">
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th>NAMA SISWA</th>
+                                        <th>TANGGAL</th>
+                                        <th>KEGIATAN</th>
+                                        <th>STATUS</th>
+                                        <th>VERIFIKASI</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="jurnalTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- 6. REKAP NILAI -->
+                <section id="tab-nilai" class="tab-pane fade-in">
+                    <div class="section-banner">
+                        <h2>Rekap Nilai PKL</h2>
+                        <p>Input dan kelola nilai pembimbing sekolah serta nilai akhir PKL siswa.</p>
+                    </div>
+
+                    <div class="content-box">
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th>NAMA SISWA</th>
+                                        <th>NILAI DUDI</th>
+                                        <th>NILAI PEMBIMBING</th>
+                                        <th>NILAI AKHIR</th>
+                                        <th>AKSI</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="nilaiTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- 7. DETAIL SISWA -->
+                <section id="tab-detail" class="tab-pane fade-in">
+                    <button class="btn-back" onclick="switchTab('siswa', getMenuItem(1))">
+                        <i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar Siswa
+                    </button>
+
+                    <div class="content-box" style="margin-top: 15px;">
+                        <div class="student-profile-header">
+                            <div class="big-avatar" id="detAvatar">A</div>
+                            <div>
+                                <h2 id="detNama">Nama Siswa</h2>
+                                <span class="badge badge-blue" id="detJurusan">RPL</span>
+                            </div>
+                        </div>
+
+                        <hr class="separator">
+
+                        <div class="detail-info-grid">
+                            <div class="info-item">
+                                <small>Perusahaan Tempat PKL</small>
+                                <strong id="detPerusahaan">-</strong>
+                            </div>
+                            <div class="info-item">
+                                <small>Alamat Perusahaan</small>
+                                <strong id="detAlamat">-</strong>
+                            </div>
+                            <div class="info-item">
+                                <small>Status Absensi Hari Ini</small>
+                                <span class="badge badge-green">Hadir (Tepat Waktu)</span>
+                            </div>
+                            <div class="info-item">
+                                <small>Total Jurnal Disetujui</small>
+                                <strong>12 Laporan</strong>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- MODAL FORM TAMBAH / EDIT SISWA -->
+    <div class="modal-overlay" id="siswaModal">
+        <div class="modal-card fade-in">
+            <div class="modal-header">
+                <h3 id="modalSiswaTitle">Tambah Siswa Bimbingan</h3>
+                <button class="btn-close-modal" onclick="closeSiswaModal()">&times;</button>
+            </div>
+            <form onsubmit="saveSiswa(event)">
+                <input type="hidden" id="editSiswaId">
+                <div class="form-group">
+                    <label>Nama Lengkap Siswa</label>
+                    <input type="text" id="formNamaSiswa" placeholder="Masukkan nama siswa..." required>
+                </div>
+                <div class="form-group">
+                    <label>Jurusan</label>
+                    <select id="formJurusanSiswa" required class="form-control">
+                        <option value="RPL">RPL (Rekayasa Perangkat Lunak)</option>
+                        <option value="TKJ">TKJ (Teknik Komputer Jaringan)</option>
+                        <option value="MM">MM (Multimedia)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Perusahaan Tempat PKL</label>
+                    <input type="text" id="formPerusahaanSiswa" placeholder="Masukkan nama PT/CV/Instansi..." required>
+                </div>
+                <div class="form-group">
+                    <label>Alamat Perusahaan</label>
+                    <input type="text" id="formAlamatSiswa" placeholder="Masukkan alamat tempat PKL..." required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="closeSiswaModal()">Batal</button>
+                    <button type="submit" class="btn-save">Simpan Data</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL EDIT NILAI -->
+    <div class="modal-overlay" id="editNilaiModal">
+        <div class="modal-card fade-in">
+            <div class="modal-header">
+                <h3>Input / Edit Nilai Pembimbing</h3>
+                <button class="btn-close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <form onsubmit="saveNilai(event)">
+                <input type="hidden" id="editStudentIdx">
+                <div class="form-group">
+                    <label>Nama Siswa</label>
+                    <input type="text" id="modalStudentName" disabled>
+                </div>
+                <div class="form-group">
+                    <label>Nilai Pembimbing (0-100)</label>
+                    <input type="number" id="modalStudentScore" min="0" max="100" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="closeModal()">Batal</button>
+                    <button type="submit" class="btn-save">Simpan Nilai</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
